@@ -1,0 +1,103 @@
+-- Crear la base de datos
+CREATE DATABASE IF NOT EXISTS CineDB;
+USE CineDB;
+
+-- Crear usuario para esta base de datos
+CREATE USER IF NOT EXISTS 'usercine'@'localhost' IDENTIFIED BY 'Eleazar123Colop';
+GRANT ALL PRIVILEGES ON CineDB.* TO 'usercine'@'localhost';
+FLUSH PRIVILEGES;
+
+-- Tabla de usuarios
+CREATE TABLE IF NOT EXISTS Usuarios (
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY, -- ID único de usuario
+    nombre_usuario VARCHAR(50) NOT NULL UNIQUE, -- Nombre de usuario único
+    correo VARCHAR(100) NOT NULL UNIQUE, -- Correo electrónico
+    contrasena VARCHAR(255) NOT NULL, -- Contraseña encriptada
+    tipo_usuario ENUM('COMUN','ADMIN_CINE','ADMIN_SISTEMA','ANUNCIANTE') NOT NULL, -- Rol del usuario
+    fecha_registro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Fecha de registro
+    saldo_cartera DECIMAL(10,2) DEFAULT 0.0 -- Saldo de la cartera digital
+);
+
+-- Tabla de cines
+CREATE TABLE IF NOT EXISTS Cines (
+    id_cine INT AUTO_INCREMENT PRIMARY KEY, -- ID único de cine
+    nombre VARCHAR(100) NOT NULL, -- Nombre del cine
+    ubicacion VARCHAR(200) NOT NULL, -- Ubicación del cine
+    fecha_creacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Fecha de creación
+    costo_diario DECIMAL(10,2) NOT NULL -- Costo diario del cine
+);
+
+-- Tabla de salas de cine
+CREATE TABLE IF NOT EXISTS Salas (
+    id_sala INT AUTO_INCREMENT PRIMARY KEY, -- ID único de sala
+    id_cine INT NOT NULL, -- Cine al que pertenece
+    nombre VARCHAR(50) NOT NULL, -- Nombre de la sala
+    filas INT NOT NULL, -- Cantidad de filas de asientos
+    columnas INT NOT NULL, -- Cantidad de columnas de asientos
+    estado ENUM('ACTIVA','BLOQUEADA') DEFAULT 'ACTIVA', -- Estado de la sala
+    comentarios_bloqueados BOOLEAN DEFAULT FALSE, -- Si los comentarios están bloqueados
+    FOREIGN KEY (id_cine) REFERENCES Cines(id_cine) -- Relación con cine
+);
+
+-- Tabla de películas
+CREATE TABLE IF NOT EXISTS Peliculas (
+    id_pelicula INT AUTO_INCREMENT PRIMARY KEY, -- ID único de película
+    titulo VARCHAR(150) NOT NULL, -- Título de la película
+    sinopsis TEXT, -- Sinopsis de la película
+    duracion INT NOT NULL, -- Duración en minutos
+    cast TEXT, -- Reparto de la película
+    director VARCHAR(100), -- Director de la película
+    clasificacion VARCHAR(10), -- Clasificación por edades
+    fecha_estreno DATE NOT NULL, -- Fecha de estreno
+    estado ENUM('ACTIVA','INACTIVA') DEFAULT 'ACTIVA' -- Estado de la película
+);
+
+-- Tabla de categorías
+CREATE TABLE IF NOT EXISTS Categorias (
+    id_categoria INT AUTO_INCREMENT PRIMARY KEY, -- ID de categoría
+    nombre VARCHAR(50) NOT NULL UNIQUE -- Nombre de la categoría
+);
+
+-- Relación muchos a muchos entre películas y categorías
+CREATE TABLE IF NOT EXISTS Peliculas_Categorias (
+    id_pelicula INT NOT NULL, -- ID de la película
+    id_categoria INT NOT NULL, -- ID de la categoría
+    PRIMARY KEY (id_pelicula, id_categoria), -- Llave primaria compuesta
+    FOREIGN KEY (id_pelicula) REFERENCES Peliculas(id_pelicula), -- FK a Peliculas
+    FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria) -- FK a Categorias
+);
+
+-- Tabla de boletos
+CREATE TABLE IF NOT EXISTS Boletos (
+    id_boleto INT AUTO_INCREMENT PRIMARY KEY, -- ID único de boleto
+    id_usuario INT NOT NULL, -- Usuario que compró
+    id_sala INT NOT NULL, -- Sala del cine
+    id_pelicula INT NOT NULL, -- Película asociada
+    fecha_compra DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Fecha de compra
+    cantidad INT NOT NULL, -- Cantidad de boletos
+    total DECIMAL(10,2) NOT NULL, -- Total pagado
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario), -- FK a Usuarios
+    FOREIGN KEY (id_sala) REFERENCES Salas(id_sala), -- FK a Salas
+    FOREIGN KEY (id_pelicula) REFERENCES Peliculas(id_pelicula) -- FK a Peliculas
+);
+
+-- Tabla de anuncios
+CREATE TABLE IF NOT EXISTS Anuncios (
+    id_anuncio INT AUTO_INCREMENT PRIMARY KEY, -- ID único de anuncio
+    id_usuario INT NOT NULL, -- Usuario anunciante
+    tipo ENUM('TEXTO','IMAGEN','VIDEO') NOT NULL, -- Tipo de anuncio
+    contenido TEXT, -- Contenido del anuncio
+    fecha_inicio DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Inicio de vigencia
+    fecha_fin DATETIME NOT NULL, -- Fin de vigencia
+    estado ENUM('ACTIVO','INACTIVO') DEFAULT 'ACTIVO', -- Estado del anuncio
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) -- FK a Usuarios
+);
+
+-- Tabla de reportes
+CREATE TABLE IF NOT EXISTS Reportes (
+    id_reporte INT AUTO_INCREMENT PRIMARY KEY, -- ID único de reporte
+    tipo_reporte VARCHAR(100) NOT NULL, -- Tipo de reporte
+    fecha_generacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Fecha de generación
+    parametros TEXT, -- Parámetros usados para el reporte
+    url_pdf VARCHAR(255) -- Ubicación del PDF generado
+);
