@@ -1,0 +1,75 @@
+<section class="vh-100" style="background-color: #f4f6f9;">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-10">
+        <div class="card text-black" style="border-radius: 25px;">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Registro de Usuario</p>
+
+                <form (ngSubmit)="onRegister(usuarioForm)" #usuarioForm="ngForm" class="mx-1 mx-md-4">
+
+                  <!-- Nombre de usuario -->
+                  <div class="mb-4">
+                    <label class="form-label" for="nombreUsuario">Nombre de Usuario</label>
+                    <input type="text" id="nombreUsuario" name="nombreUsuario" ngModel class="form-control" required #nombreUsuario="ngModel">
+                    <div *ngIf="nombreUsuario.invalid && nombreUsuario.touched" class="text-danger small">
+                      El nombre es obligatorio.
+                    </div>
+                  </div>
+
+                  <!-- Correo -->
+                  <div class="mb-4">
+                    <label class="form-label" for="correo">Correo Electrónico</label>
+                    <input type="email" id="correo" name="correo" ngModel class="form-control" required #correo="ngModel">
+                    <div *ngIf="correo.invalid && correo.touched" class="text-danger small">
+                      Ingrese un correo válido.
+                    </div>
+                  </div>
+
+                  <!-- Número de teléfono -->
+                  <div class="mb-4">
+                    <label class="form-label" for="numeroTelefono">Número de Teléfono</label>
+                    <input type="text" id="numeroTelefono" name="numeroTelefono" ngModel class="form-control" required #numeroTelefono="ngModel">
+                    <div *ngIf="numeroTelefono.invalid && numeroTelefono.touched" class="text-danger small">
+                      El número de teléfono es obligatorio.
+                    </div>
+                  </div>
+
+                  <!-- Contraseña -->
+                  <div class="mb-4">
+                    <label class="form-label" for="contrasena">Contraseña</label>
+                    <input type="password" id="contrasena" name="contrasena" ngModel class="form-control" required #contrasena="ngModel">
+                    <div *ngIf="contrasena.invalid && contrasena.touched" class="text-danger small">
+                      La contraseña es obligatoria.
+                    </div>
+                  </div>
+
+                  <!-- Botón de registro -->
+                  <div class="d-flex justify-content-center mb-3">
+                    <button type="submit" class="btn btn-primary btn-lg" [disabled]="usuarioForm.invalid">
+                      Registrar
+                    </button>
+                  </div>
+                </form>
+
+                <!-- Mensajes -->
+                <div *ngIf="mensaje" class="alert alert-success mt-3 text-center">{{ mensaje }}</div>
+                <div *ngIf="errorMensaje" class="alert alert-danger mt-3 text-center">{{ errorMensaje }}</div>
+
+                <div class="text-center mt-4">
+                  <button type="button" (click)="navigateTo('/home')" class="btn btn-outline-secondary btn-lg">
+                    <i class="fas fa-house me-2"></i> Volver al Inicio
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
