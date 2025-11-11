@@ -1,28 +1,147 @@
-/* Centrado de los botones */
+/* Fondo tipo cine */
+.home-section {
+  position: relative;
+  height: 100vh;
+  background: linear-gradient(135deg, #0b0c10, #1f2833, #0b0c10);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  color: #fff;
+}
+
+/* Sutil animación del fondo */
+.home-section::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(255, 98, 25, 0.1), transparent 70%);
+  animation: pulse 6s infinite alternate ease-in-out;
+  z-index: 0;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(1.3);
+    opacity: 0.9;
+  }
+}
+
+/* Capa de oscurecimiento sutil */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 10, 10, 0.6);
+  z-index: 1;
+}
+
+/* Contenido principal */
+.content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  animation: fadeInUp 1s ease;
+  padding: 0 15px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Título principal */
+.title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #ff6219;
+  text-shadow: 0 0 20px rgba(255, 98, 25, 0.5);
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+/* Subtítulo */
+.subtitle {
+  font-size: 1.2rem;
+  color: #c5c6c7;
+  margin-bottom: 40px;
+}
+
+/* Contenedor de botones */
 .button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Centra los botones en toda la altura */
-    gap: 20px; /* Espacio entre los botones */
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Estilo común de botones */
+.custom-btn {
+  padding: 12px 28px;
+  border: 2px solid #ff6219;
+  background-color: transparent;
+  color: #ff6219;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animación de brillo */
+.custom-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75px;
+  width: 50px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: skewX(-20deg);
+  transition: 0.5s;
+}
+
+.custom-btn:hover::before {
+  left: 120%;
+}
+
+/* Hover del botón */
+.custom-btn:hover {
+  background-color: #ff6219;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(255, 98, 25, 0.6);
+  transform: translateY(-3px);
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.3rem;
   }
-  
-  /* Estilo común para los botones */
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
   .custom-btn {
-    padding: 12px 24px;
-    border: 2px solid #ff6219; /* Bordes naranjas */
-    background-color: transparent;
-    color: #ff6219; /* Color del texto */
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease; /* Animación suave para el hover */
+    width: 100%;
+    max-width: 250px;
   }
-  
-  /* Efecto de hover (brillo) */
-  .custom-btn:hover {
-    background-color: #ff6219;
-    color: white;
-    box-shadow: 0 0 10px rgba(255, 98, 25, 0.6); /* Brillo al pasar por encima */
-  }
+}

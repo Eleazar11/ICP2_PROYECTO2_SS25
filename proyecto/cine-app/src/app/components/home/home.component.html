@@ -1,7 +1,13 @@
-<body>
-    <form class="button-container">
-      <button type="button" (click)="navigateTo('/registro')" name="register" class="custom-btn">Registrarse</button>
-      <button type="submit" (click)="navigateTo('/login')" name="login" class="custom-btn">Iniciar sesión</button>
-    </form>
-  </body>
-  
+<section class="home-section">
+  <div class="overlay"></div>
+
+  <div class="content text-center">
+    <h1 class="title">🦇 BatiCine</h1>
+    <p class="subtitle">Tu experiencia cinematográfica empieza aquí</p>
+
+    <div class="button-container">
+      <button (click)="navigateTo('/registro')" class="custom-btn"> Registrarse</button>
+      <button (click)="navigateTo('/login')" class="custom-btn"> Iniciar sesión</button>
+    </div>
+  </div>
+</section>

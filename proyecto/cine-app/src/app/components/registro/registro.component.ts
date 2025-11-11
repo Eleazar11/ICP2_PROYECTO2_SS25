@@ -34,11 +34,11 @@ export class RegistroComponent {
         contrasena: formValue.contrasena
       };
 
-      console.log('📤 Enviando usuario al backend:', usuario);
+      console.log('Enviando usuario al backend:', usuario);
 
       this.usuariosService.registrarUsuario(usuario).subscribe({
         next: (response) => {
-          console.log('✅ Usuario registrado:', response);
+          console.log('Usuario registrado:', response);
           this.mensaje = response.message || 'Registro exitoso';
           this.errorMensaje = null;
 
@@ -48,7 +48,7 @@ export class RegistroComponent {
           }, 2000);
         },
         error: (err) => {
-          console.error('❌ Error al registrar usuario:', err);
+          console.error(' Error al registrar usuario:', err);
           this.errorMensaje = err.error?.error || 'Ocurrió un error en el registro';
           this.mensaje = null;
         }
