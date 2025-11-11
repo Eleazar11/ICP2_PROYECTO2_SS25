@@ -27,47 +27,59 @@ public class UsuarioDB {
         }
     }
 
-    // Método para registrar un usuario
-    public boolean registrarUsuario(Usuario usuario) {
-        if (existeUsuario(usuario.getCorreo())) {
-            return false; // El usuario ya existe en la base de datos
-        }
+    // Registro de usuario
+    public boolean registrarUsuario(Usuario usuario) throws SQLException {
+        String sql = "INSERT INTO usuarios (nombre_usuario, correo, numero_telefono, contrasena, tipo_usuario, fecha_registro) "
+                + "VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
-        String consulta = "INSERT INTO usuarios (dpi, correo, contrasena, tipo_usuario) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(consulta)) {
-            // falta arreglar esto statement.setString(1, usuario.getDpi());
-            statement.setString(2, usuario.getCorreo());
-            statement.setString(3, usuario.getContrasena());
-            statement.setString(4, usuario.getRol().toString());
-           
+        try (PreparedStatement ps = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, usuario.getNombreUsuario());
+            ps.setString(2, usuario.getCorreo());
+            ps.setString(3, usuario.getNumeroTelefono());
+            ps.setString(4, usuario.getContrasena());
+            ps.setString(5, usuario.getRol().toString());
 
-            int filasAfectadas = statement.executeUpdate();
+            int filas = ps.executeUpdate();
 
-            // If the user is 'especial' or 'editor', create a digital wallet entry
-//            if (usuario.getRol().equals("especial") || usuario.getRol().equals("editor")) {
-//                registrarCarteraDigital(usuario.getNombreUsuario());
-//                System.out.println("Se creó una cartera digital");
-//            }
+            if (filas > 0) {
+                // Obtener el ID del nuevo usuario
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        int idUsuario = rs.getInt(1);
+                        usuario.setIdUsuario(idUsuario);
 
-            return filasAfectadas > 0;
+                        // Si es anunciante → crear cartera digital
+                        if ("ANUNCIANTE".equalsIgnoreCase(usuario.getRol().toString())) {
+                            crearCarteraDigital(usuario);
+                        }
+                    }
+                }
+            }
+
+            return filas > 0;
         } catch (SQLException e) {
             System.out.println("Error al registrar usuario: " + e.getMessage());
-            return false;
+            throw e;
         }
     }
 
 //    // Método para registrar cartera digital si el usuario es de tipo 'especial'
-//    private void registrarCarteraDigital(String nombreUsuario) {
-//        String consultaCartera = "INSERT INTO carteras_digitales (nombre_usuario, saldo, fecha_creacion) VALUES (?, 0.00, CURRENT_DATE)";
-//        try (PreparedStatement statementCartera = connection.prepareStatement(consultaCartera)) {
-//            statementCartera.setString(1, nombreUsuario);
-//            statementCartera.executeUpdate();
-//        } catch (SQLException e) {
-//            System.out.println("Error al registrar cartera digital: " + e.getMessage());
-//        }
-//    }
+    /**
+     * Crea una cartera digital asociada a un usuario tipo ANUNCIANTE.
+     */
+    private void crearCarteraDigital(Usuario usuario) {
+        String sql = "INSERT INTO Carteras_Digitales (id_usuario, correo, saldo_actual) VALUES (?, ?, 0.00)";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, usuario.getIdUsuario());
+            ps.setString(2, usuario.getCorreo());
+            ps.executeUpdate();
+            System.out.println("Cartera digital creada para anunciante: " + usuario.getCorreo());
+        } catch (SQLException e) {
+            System.out.println("Error al crear cartera digital: " + e.getMessage());
+        }
+    }
 
-     //Método para verificar si el usuario ya existe en la base de datos
+    //Método para verificar si el usuario ya existe en la base de datos
     private boolean existeUsuario(String dpi) {
         String consulta = "SELECT COUNT(*) FROM usuarios WHERE dpi = ?";
         try (PreparedStatement statement = connection.prepareStatement(consulta)) {
@@ -84,24 +96,30 @@ public class UsuarioDB {
         return false;
     }
 
-//    // Método para autenticar usuario
-//    public Usuario iniciarSesion(String nombreUsuario, String contrasena) {
-//        Seguridad seguridad = new Seguridad();
-//        Usuario usuarioObtenido = obtenerUsuario(nombreUsuario);
-//
-//        if (usuarioObtenido == null) {
-//            return null;
-//        }
-//        // Si la contraseña coincide con el hash almacenado, devuelve un objeto Usuario
-//        if (seguridad.verificarContrasena(contrasena, usuarioObtenido.getContrasena())) {
-//            System.out.println("Contraseña correcta");
-//            return usuarioObtenido;
-//        }
-//
-//        // Si no se encontró un usuario con las credenciales dadas, devuelve null
-//        return null;
-//    }
-    
+    public Usuario obtenerUsuarioPorCorreo(String correo) throws SQLException {
+        String sql = "SELECT * FROM usuarios WHERE correo = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, correo);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Usuario usuario = new Usuario();
+                    usuario.setIdUsuario(rs.getInt("id_usuario"));
+                    usuario.setNombreUsuario(rs.getString("nombre_usuario"));
+                    usuario.setCorreo(rs.getString("correo"));
+                    usuario.setNumeroTelefono(rs.getString("numero_telefono"));
+                    usuario.setContrasena(rs.getString("contrasena"));
+                    usuario.setRol(com.mycompany.baticinesapi.models.Rol.valueOf(rs.getString("tipo_usuario")));
+                    usuario.setFechaRegistro(rs.getTimestamp("fecha_registro"));
+                    return usuario;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener usuario por correo: " + e.getMessage());
+            throw e;
+        }
+        return null; // si no se encuentra
+    }
+
     // Método para obtener un usuario por nombre de usuario
     public Usuario obtenerUsuario(String nombreUsuario) {
         String consulta = "SELECT * FROM usuarios WHERE dpi = ?";
@@ -113,14 +131,13 @@ public class UsuarioDB {
                     String correo = resultSet.getString("correo");
                     String contrasena = resultSet.getString("contrasena");
                     String rol = resultSet.getString("tipo_usuario");
-                    
 
                     // Construcción del usuario
 //                    Usuario usuario = new Usuario(
 //                            
 //                            dpi, correo, contrasena, Rol.valueOf(rol.toUpperCase())
 //                    );
-                    System.out.println("Rol recibido de la BD: '" + rol+ dpi+ contrasena + "'");
+                    System.out.println("Rol recibido de la BD: '" + rol + dpi + contrasena + "'");
                     //return usuario;
                     return null;
                 }
@@ -144,4 +161,3 @@ public class UsuarioDB {
 //        }
 //    }
 }
-

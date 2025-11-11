@@ -27,6 +27,8 @@ public class Usuario {
         this.contrasena = contrasena;
     }
     
+    public Usuario(){} //constructor vacio pa cosas que usamos luego
+    
     public int getIdUsuario() {
         return idUsuario;
     }

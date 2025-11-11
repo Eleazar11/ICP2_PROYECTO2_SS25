@@ -1,0 +1,6 @@
+export enum TipoUsuario {
+  COMUN = 'COMUN',
+  ADMIN_CINE = 'ADMIN_CINE',
+  ADMIN_SISTEMA = 'ADMIN_SISTEMA',
+  ANUNCIANTE = 'ANUNCIANTE'
+}

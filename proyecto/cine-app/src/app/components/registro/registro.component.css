@@ -1,0 +1,108 @@
+/* Fondo general */
+section {
+  background: linear-gradient(135deg, #2e3a59, #3a506b, #5bc0be);
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Tarjeta */
+.card {
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  background-color: #fff;
+}
+
+/* Título */
+p.h1 {
+  color: #1b263b;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Labels */
+.form-label {
+  font-weight: 600;
+  color: #1b263b;
+}
+
+/* Inputs */
+.form-control {
+  border-radius: 10px;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  transition: all 0.2s ease-in-out;
+}
+
+.form-control:focus {
+  border-color: #3a506b;
+  box-shadow: 0 0 0 3px rgba(91, 192, 190, 0.2);
+}
+
+/* Botones */
+button.btn-primary {
+  background-color: #3a506b;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 25px;
+  transition: all 0.3s ease;
+}
+
+button.btn-primary:hover {
+  background-color: #1c2541;
+  transform: translateY(-2px);
+}
+
+button.btn-outline-secondary {
+  border-radius: 10px;
+  border: 2px solid #3a506b;
+  color: #3a506b;
+  transition: all 0.3s ease;
+}
+
+button.btn-outline-secondary:hover {
+  background-color: #3a506b;
+  color: #fff;
+}
+
+/* Errores de validación */
+.text-danger.small {
+  margin-top: 4px;
+  font-size: 0.85rem;
+}
+
+/* Mensajes de estado */
+.alert {
+  border-radius: 10px;
+  padding: 12px;
+  margin-top: 15px;
+}
+
+.alert-success {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #842029;
+}
+
+/* Animación ligera al aparecer la tarjeta */
+.card {
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
