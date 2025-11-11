@@ -1,1 +1,43 @@
-<p>anunciante works!</p>
+<section class="anunciante-page">
+  <!-- Navbar superior -->
+  <nav class="navbar">
+    <h2 class="logo">📢 Anunciante</h2>
+    <ul class="nav-menu">
+      <li class="nav-item dropdown">
+        <span>Anuncios ▼</span>
+        <ul class="dropdown-menu">
+          <li><button (click)="null">Crear</button></li>
+          <li><button (click)="null">Editar</button></li>
+          <li><button (click)="null">Eliminar</button></li>
+        </ul>
+      </li>
+
+      <li class="nav-item dropdown">
+        <span>Cartera Digital ▼</span>
+        <ul class="dropdown-menu">
+          <li><button (click)="null">Recargar</button></li>
+          <li><button (click)="null">Ver Historial</button></li>
+        </ul>
+      </li>
+
+      <li class="nav-item">
+        <button (click)="null">Comprar Anuncios</button>
+      </li>
+
+      <li class="nav-item">
+        <button class="logout-btn" (click)="cerrarSesion()">Cerrar sesión</button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main class="main-content">
+    <h1>Bienvenido, anunciante</h1>
+    <p>Administra tus anuncios, cartera digital y compras desde aquí.</p>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 BatiCine. Todos los derechos reservados.</p>
+  </footer>
+</section>

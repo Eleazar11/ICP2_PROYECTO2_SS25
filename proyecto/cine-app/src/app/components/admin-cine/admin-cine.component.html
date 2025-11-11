@@ -1,1 +1,53 @@
-<p>admin-cine works!</p>
+<section class="admin-cine-page">
+  <!-- Navbar superior -->
+  <nav class="navbar">
+    <h2 class="logo">🎬 Admin Cine</h2>
+    <ul class="nav-menu">
+      <!-- Reportes -->
+      <li class="nav-item dropdown">
+        <span>Reportes ▼</span>
+        <ul class="dropdown-menu">
+          <li><button (click)="null">Reporte 1</button></li>
+          <li><button (click)="null">Reporte 2</button></li>
+          <li><button (click)="null">Reporte 3</button></li>
+        </ul>
+      </li>
+
+      <!-- Cines -->
+      <li class="nav-item dropdown">
+        <span>Cines ▼</span>
+        <ul class="dropdown-menu">
+          <li><button (click)="null">Crear</button></li>
+          <li><button (click)="null">Editar</button></li>
+          <li><button (click)="null">Eliminar</button></li>
+        </ul>
+      </li>
+
+      <!-- Comentarios -->
+      <li class="nav-item">
+        <button (click)="null">Comentarios</button>
+      </li>
+
+      <!-- Listas de Tops -->
+      <li class="nav-item">
+        <button (click)="null">Listas de Tops</button>
+      </li>
+
+      <!-- Cerrar sesión -->
+      <li class="nav-item">
+        <button class="logout-btn" (click)="cerrarSesion()">Cerrar sesión</button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main class="main-content">
+    <h1>Bienvenido, Admin Cine</h1>
+    <p>Desde aquí puedes administrar reportes, cines, comentarios y listas de tops.</p>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 BatiCine. Todos los derechos reservados.</p>
+  </footer>
+</section>
