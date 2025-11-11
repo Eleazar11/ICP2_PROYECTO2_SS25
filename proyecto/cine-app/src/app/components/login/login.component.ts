@@ -25,7 +25,7 @@ export class LoginComponent {
         const decoded: any = jwtDecode(token);
         const rol = decoded.rol; // asegúrate de que tu backend lo incluya así
 
-        console.log(' Usuario logueado con rol:', rol);
+        console.log('✅ Usuario logueado con rol:', rol);
 
         switch (rol) {
           case 'ADMIN_SISTEMA':
@@ -34,9 +34,10 @@ export class LoginComponent {
           case 'ADMIN_CINE':
             this.router.navigate(['/admin-cine']);
             break;
-          case 'CLIENTE':
+          case 'COMUN':
             this.router.navigate(['/comun']);
             break;
+            
           case 'ANUNCIANTE':
             this.router.navigate(['/anunciante']);
             break;
@@ -46,12 +47,12 @@ export class LoginComponent {
         }
       },
       error: (err) => {
-        console.error(' Error al iniciar sesión:', err);
+        console.error('❌ Error al iniciar sesión:', err);
         this.errorMensaje = 'Credenciales inválidas o error en el servidor.';
       }
     });
   }
-  volverHome() {
+    volverHome() {
     this.router.navigate(['/home']);
   }
 }

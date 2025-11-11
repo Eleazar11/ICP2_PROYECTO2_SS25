@@ -1,0 +1,135 @@
+/* Fondo general */
+.usuario-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #0a0f1d, #1c2541, #3a506b);
+  background-size: 400% 400%;
+  animation: gradientShift 10s ease infinite;
+  color: #fff;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(20, 25, 45, 0.9);
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.navbar .logo {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #ffcc00;
+  letter-spacing: 1px;
+}
+
+.logout-btn {
+  background: linear-gradient(90deg, #ffcc00, #ff9900);
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  color: #000;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: linear-gradient(90deg, #ffb300, #ffd54f);
+  transform: scale(1.05);
+}
+
+/* Contenido central con anuncios a los lados */
+.content-container {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 2rem 3rem;
+  gap: 2rem;
+}
+
+/* Columnas de anuncios */
+.ads-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.ad-box {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(255, 204, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.ad-box:hover {
+  transform: translateY(-5px);
+}
+
+.ad-box img {
+  width: 120px;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Contenido principal */
+.main-content {
+  flex: 1;
+  text-align: center;
+  padding: 2rem;
+  background-color: rgba(25, 30, 50, 0.8);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.main-content h1 {
+  font-size: 2rem;
+  color: #ffcc00;
+  margin-bottom: 1rem;
+}
+
+.main-content p {
+  color: #cfd8dc;
+  font-size: 1.1rem;
+}
+
+/* Footer */
+.footer {
+  background: rgba(20, 25, 45, 0.9);
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #bbb;
+}
+
+/* Animación del fondo */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+  .content-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ads-column {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .ad-box img {
+    width: 100px;
+    height: 120px;
+  }
+}

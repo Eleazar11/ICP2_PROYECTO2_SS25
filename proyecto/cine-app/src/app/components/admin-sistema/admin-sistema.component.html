@@ -1,1 +1,49 @@
-<p>admin-sistema works!</p>
+<section class="admin-sistema-page">
+  <!-- Navbar superior -->
+  <nav class="navbar">
+    <h2 class="logo">🎬 Admin Sistema</h2>
+    <ul class="nav-menu">
+      <!-- Reportes -->
+      <li class="nav-item dropdown">
+        <span>Reportes ▼</span>
+        <ul class="dropdown-menu">
+          <li><button (click)="null">Reporte 1</button></li>
+          <li><button (click)="null">Reporte 2</button></li>
+          <li><button (click)="null">Reporte 3</button></li>
+          <li><button (click)="null">Reporte 4</button></li>
+        </ul>
+      </li>
+
+      <!-- Modificación de precios -->
+      <li class="nav-item">
+        <button (click)="null">Modificar Precios</button>
+      </li>
+
+      <!-- CRUD de Usuarios -->
+      <li class="nav-item dropdown">
+        <span>Usuarios ▼</span>
+        <ul class="dropdown-menu">
+          <li><button (click)="null">Crear</button></li>
+          <li><button (click)="null">Editar</button></li>
+          <li><button (click)="null">Eliminar</button></li>
+        </ul>
+      </li>
+
+      <!-- Cerrar sesión -->
+      <li class="nav-item">
+        <button class="logout-btn" (click)="cerrarSesion()">Cerrar sesión</button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main class="main-content">
+    <h1>Bienvenido, Admin Sistema</h1>
+    <p>Desde aquí puedes revisar reportes, modificar precios y administrar usuarios.</p>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 BatiCine. Todos los derechos reservados.</p>
+  </footer>
+</section>
