@@ -1,0 +1,150 @@
+/* Fondo general */
+section {
+  background: linear-gradient(135deg, #243b55, #141e30, #3a506b);
+  background-size: 400% 400%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: gradientShift 10s ease infinite;
+}
+
+/* Tarjeta principal */
+.card {
+  background-color: rgba(255, 255, 255, 0.97);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 420px;
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.7s ease-out;
+}
+
+/* Encabezado */
+p.h1 {
+  color: #1b263b;
+  font-weight: 700;
+  font-size: 2rem;
+  letter-spacing: 0.8px;
+  margin-bottom: 1rem;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Subtítulo opcional */
+p.subtitle {
+  text-align: center;
+  color: #3a506b;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Labels */
+.form-label {
+  font-weight: 600;
+  color: #1b263b;
+}
+
+/* Inputs */
+.form-control {
+  border-radius: 12px;
+  padding: 12px 15px;
+  border: 1.5px solid #ccc;
+  transition: all 0.25s ease;
+}
+
+.form-control:focus {
+  border-color: #5bc0be;
+  box-shadow: 0 0 0 4px rgba(91, 192, 190, 0.25);
+}
+
+/* Botones */
+button.btn-primary {
+  background: linear-gradient(90deg, #3a506b, #1c2541);
+  border: none;
+  border-radius: 12px;
+  padding: 12px 25px;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #fff;
+  width: 100%;
+}
+
+button.btn-primary:hover {
+  background: linear-gradient(90deg, #1c2541, #3a506b);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+button.btn-outline-secondary {
+  border-radius: 12px;
+  border: 2px solid #3a506b;
+  color: #3a506b;
+  background-color: transparent;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+button.btn-outline-secondary:hover {
+  background-color: #3a506b;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Validación y alertas */
+.text-danger.small {
+  margin-top: 4px;
+  font-size: 0.85rem;
+}
+
+.alert {
+  border-radius: 10px;
+  padding: 12px;
+  margin-top: 15px;
+  animation: fadeIn 0.4s ease;
+}
+
+.alert-success {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #842029;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Responsividad */
+@media (max-width: 500px) {
+  .card {
+    margin: 1rem;
+    padding: 2rem;
+  }
+
+  p.h1 {
+    font-size: 1.6rem;
+  }
+}

@@ -1,108 +1,174 @@
-/* Fondo general */
+/* Fondo animado con gradiente oscuro tipo “BatiCine” */
 section {
-  background: linear-gradient(135deg, #2e3a59, #3a506b, #5bc0be);
-  background-size: cover;
+  background: linear-gradient(135deg, #0a0f1d, #1c2541, #3a506b);
+  background-size: 400% 400%;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: gradientShift 10s ease infinite;
+  padding: 0; /* 🔸 quita el padding que descentraba */
+  box-sizing: border-box;
 }
 
-/* Tarjeta */
+
+/* Animación del fondo */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Tarjeta principal más ancha */
 .card {
-  border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  background-color: rgba(25, 30, 50, 0.92);
+  border-radius: 10px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
   overflow: hidden;
-  background-color: #fff;
+  padding: 2rem;
+  width: 90%;          
+  max-width: 900px;     
+  margin: 0 auto;       
+  backdrop-filter: blur(20px);
+  animation: fadeIn 0.7s ease-out;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-/* Título */
+.card:hover {
+  transform: translateY(-5px);
+  background-color: rgba(30, 35, 60, 0.95);
+}
+
+/* Encabezado */
 p.h1 {
-  color: #1b263b;
+  color: #ffcc00;
   font-weight: 700;
+  font-size: 2.2rem;
   letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  text-shadow: 0 0 8px rgba(255, 204, 0, 0.4);
+}
+
+/* Subtítulo opcional */
+p.subtitle {
+  text-align: center;
+  color: #a0b8d1;
+  font-size: 1rem;
+  margin-bottom: 2rem;
 }
 
 /* Labels */
 .form-label {
   font-weight: 600;
-  color: #1b263b;
+  color: #dbe2ef;
 }
 
 /* Inputs */
 .form-control {
-  border-radius: 10px;
-  padding: 10px 15px;
-  border: 1px solid #ccc;
-  transition: all 0.2s ease-in-out;
+  border-radius: 12px;
+  padding: 12px 15px;
+  border: 1.5px solid #3a506b;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #f0f0f0;
+  transition: all 0.25s ease;
 }
 
 .form-control:focus {
-  border-color: #3a506b;
-  box-shadow: 0 0 0 3px rgba(91, 192, 190, 0.2);
+  border-color: #ffcc00;
+  box-shadow: 0 0 0 4px rgba(255, 204, 0, 0.25);
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
-/* Botones */
+/* Botón principal */
 button.btn-primary {
-  background-color: #3a506b;
+  background: linear-gradient(90deg, #ffcc00, #ff9900);
   border: none;
-  border-radius: 10px;
-  padding: 10px 25px;
+  border-radius: 12px;
+  padding: 12px 25px;
   transition: all 0.3s ease;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #000;
+  width: 100%;
 }
 
 button.btn-primary:hover {
-  background-color: #1c2541;
+  background: linear-gradient(90deg, #ffb300, #ffd54f);
   transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(255, 204, 0, 0.3);
 }
 
+/* Botón secundario */
 button.btn-outline-secondary {
-  border-radius: 10px;
-  border: 2px solid #3a506b;
-  color: #3a506b;
+  border-radius: 12px;
+  border: 2px solid #ffcc00;
+  color: #ffcc00;
+  background-color: transparent;
   transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 10px;
+  font-weight: 600;
 }
 
 button.btn-outline-secondary:hover {
-  background-color: #3a506b;
-  color: #fff;
+  background-color: #ffcc00;
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(255, 204, 0, 0.3);
 }
 
-/* Errores de validación */
+/* Validación y alertas */
 .text-danger.small {
   margin-top: 4px;
   font-size: 0.85rem;
+  color: #ff6b6b;
 }
 
-/* Mensajes de estado */
 .alert {
   border-radius: 10px;
   padding: 12px;
   margin-top: 15px;
+  animation: fadeIn 0.4s ease;
 }
 
 .alert-success {
-  background-color: #d1e7dd;
-  color: #0f5132;
+  background-color: rgba(56, 142, 60, 0.15);
+  color: #a5d6a7;
 }
 
 .alert-danger {
-  background-color: #f8d7da;
-  color: #842029;
+  background-color: rgba(244, 67, 54, 0.15);
+  color: #ef9a9a;
 }
 
-/* Animación ligera al aparecer la tarjeta */
-.card {
-  animation: fadeIn 0.6s ease;
-}
-
+/* Animación de aparición */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(15px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .card {
+    max-width: 90%;
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .card {
+    margin: 1rem;
+    padding: 1.8rem;
+  }
+
+  p.h1 {
+    font-size: 1.7rem;
   }
 }
